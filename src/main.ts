@@ -1,6 +1,7 @@
 import express from 'express'
 import mysql from 'mysql2/promise'
-import { Connection } from 'mysql2/typings/mysql/lib/Connection'
+
+
 const app = express()
 app.get("/produtos", async(req,res)=>{
     // OK -> 0 - Criar o banco de dados e iniciar o servidor
@@ -23,9 +24,6 @@ try{
 }
 })
 
-app.get("/",(req,res)=>{
-    res.send("Servirdor Funfando")
-})
 //Abrir uma porta do servidor express
 app.listen(8000,()=>{
     console.log("Inicie o Servidor")
