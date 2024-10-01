@@ -17,7 +17,7 @@ try{
     const [result, fields] = await conection.query("SELECT * from produtos")
     // 3 - Devolver dados para quem pediu
     await conection.end()
-    res.send("Devolve produtos Funfando")
+    res.send(result)
 }catch(e){
     res.status(500).send("Server ERROR")
 }
