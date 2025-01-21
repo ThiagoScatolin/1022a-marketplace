@@ -71,7 +71,7 @@ app.put("/produtos/:id",async(req,res)=>{
     const produto = {nome,descricao,preco,imagem}
     const banco = new BancoMongo()
     await banco.criarConexao()
-    const result = await banco.consultar(query,parametros)
+    const result = await banco.alterar(req.params.id,produto)
     await banco.finalizarConexao()
     res.status(200).send("Produto alterado com sucesso id: "+req.params.id)
 })
