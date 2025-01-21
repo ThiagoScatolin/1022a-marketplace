@@ -63,7 +63,7 @@ app.put("/produtos/:id",async(req,res)=>{
     await banco.criarConexao()
     const result = await banco.consultar(query,parametros)
     await banco.finalizarConexao()
-    res.send("Produto atualizado com sucesso id: "+req.params.id)
+    res.status(200).send("Produto atualizado com sucesso id: "+req.params.id)
 })
 
 app.listen(8000, () => {
