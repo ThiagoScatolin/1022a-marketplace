@@ -9,11 +9,11 @@ app.use(express.json())
 app.use(cors())
 
 
-app.get("/produtos/:id", async (req, res) => {
+app.get("/produtos", async (req, res) => {
     try {
         const banco = new BancoMongo()
         await banco.criarConexao()
-        const result = await banco.listarPorId(req.params.id)
+        const result = await banco.listar()
         await banco.finalizarConexao()
         res.send(result)
     } catch (e) {
