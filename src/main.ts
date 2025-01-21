@@ -21,6 +21,19 @@ app.get("/produtos/:id", async (req, res) => {
         res.status(500).send("Server ERROR")
     }
 })
+app.get("/produtos/:id", async (req, res) => {
+    try {
+        
+        const banco = new BancoMongo()
+        await banco.criarConexao()
+        const result = await banco.listarPorId(req.params.id)
+        await banco.finalizarConexao()
+        res.send(result)
+    } catch (e) {
+        console.log(e)
+        res.status(500).send("Server ERROR")
+    }
+})
 app.post("/produtos", async (req, res) => {
     try {
         const {id,nome,descricao,preco,imagem} = req.body
@@ -54,16 +67,13 @@ app.delete("/produtos/:id",async(req,res)=>{
 
 //ALTERAR
 app.put("/produtos/:id",async(req,res)=>{
-    const {id,nome,descricao,preco,imagem} = req.body
-    console.log(req.params.id)
-    const query = "UPDATE produtos SET nome=?, descricao=?, preco=?, imagem=? WHERE id = ?"
-    const parametros = [nome,descricao,preco,imagem,req.params.id]
-
-    const banco = new BancoMysql()
+    const {nome,descricao,preco,imagem} = req.body
+    const produto = {nome,descricao,preco,imagem}
+    const banco = new BancoMongo()
     await banco.criarConexao()
     const result = await banco.consultar(query,parametros)
     await banco.finalizarConexao()
-    res.status(200).send("Produto atualizado com sucesso id: "+req.params.id)
+    res.status(200).send("Produto alterado com sucesso id: "+req.params.id)
 })
 
 app.listen(8000, () => {
